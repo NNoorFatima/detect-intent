@@ -1,10 +1,16 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from detect_intent import detect_intent
+from fastapi.middleware.cors import CORSMiddleware  
 
 # Initialize the FastAPI app
 app = FastAPI(title="AIVA Bot Intent Detection API")
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins (good for local testing)
+    allow_methods=["*"],  # Allows all methods (POST, GET, OPTIONS, etc.)
+    allow_headers=["*"],  # Allows all headers
+)
 # Define the expected format of the incoming request
 class UserMessage(BaseModel):
     message: str
